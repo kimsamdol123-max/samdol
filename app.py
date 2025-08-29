@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template_string
+import os  # 추가
 
 app = Flask(__name__)
 
@@ -57,7 +58,6 @@ HTML_PAGE = '''
 '''
 
 def combined_predict(results):
-    # 간단 예시: 플레이어 P가 더 많으면 P 예측, 뱅커 B가 많으면 B 예측, 그 외는 불확실
     player_count = results.count('P')
     banker_count = results.count('B')
     if len(results) < 3:
@@ -91,4 +91,5 @@ def reset():
     return jsonify({"message": "기록 초기화 완료"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render가 지정하는 포트 받기, 없으면 5000번
+    app.run(host='0.0.0.0', port=port, debug=True)

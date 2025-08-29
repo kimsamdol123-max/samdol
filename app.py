@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify, render_template_string
-import os  # 추가
+import os
 
 app = Flask(__name__)
-
 history = []
 
 HTML_PAGE = '''
@@ -90,6 +89,7 @@ def reset():
     history = []
     return jsonify({"message": "기록 초기화 완료"})
 
+# Render 환경에서 포트를 열기 위한 설정
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Render가 지정하는 포트 받기, 없으면 5000번
-    app.run(host='0.0.0.0', port=port, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
